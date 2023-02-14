@@ -149,10 +149,7 @@ def has_specific_sql(alias) -> bool:
     """Return True if iRODS has a specific query installed under the alias."""
     existing = iquest("--sql", "ls")
     with StringIO(existing) as reader:
-        for line in reader:
-            line = line.strip()
-            if line == alias:
-                return True
+        return any(line.strip() == alias for line in reader)
     return False
 
 
